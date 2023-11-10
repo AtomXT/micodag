@@ -1,8 +1,16 @@
 micodag is a Python package for learning Bayesian network using mixed integer convex programming. 
 
 - Related paper: Integer Programming for Learning Directed Acyclic Graphs from Non-identifiable Gaussian Models
+- Authors: Tong Xu, Armeen Taeb, Simge Kucukyavuz, Ali Shojaie
 - Code for reproducing experiments in the paper is available on [Github](https://github.com/AtomXT/MICP-NID)
 - Source code: https://github.com/AtomXT/micodag
+
+# Install
+
+```angular2html
+$ pip install micodag
+```
+
 # Simple example
 
 Please download the following test files:
