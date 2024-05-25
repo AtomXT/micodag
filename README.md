@@ -30,7 +30,7 @@ moral = pd.read_table('Sparse_Moral_edges_9_500_3.txt', delimiter=",", header=No
 true_B = pd.read_table('Sparse_Original_edges_9_500_3.txt', delimiter=",", header=None)
 n, p = data.shape
 lam = 12*np.log(p)/n
-_, B, _ = mic.optimize(data, moral, lam)
+RGAP, B, _, obj, _ = mic.optimize(data, moral, lam)
 B_arcs = pd.DataFrame([[i+1, j+1] for i in range(p) for j in range(p) if B[i, j] != 0])
 print(B_arcs)
 print(true_B)
