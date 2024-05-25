@@ -207,6 +207,6 @@ def optimize(data, moral, lam, timelimit=50, verbose=1):
     run_time = end - start
     RGAP = m.MIPGAP
 
-    return RGAP, B, run_time
+    return RGAP, B, Gamma_opt, m.ObjVal, run_time
 
 
