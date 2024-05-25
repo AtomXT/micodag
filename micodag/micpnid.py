@@ -50,7 +50,8 @@ def optimize(data, moral, lam, timelimit=50, verbose=1):
     G_moral.add_edges_from(list_edges)
 
     non_edges = list(set(E) - set(list_edges))
-    Sigma_hat = data.values.T @ data.values / n
+    # Sigma_hat = data.values.T @ data.values / n
+    Sigma_hat = np.cov(data.values.T)
 
     ############################## Find Delta and Mu ########################################
 
