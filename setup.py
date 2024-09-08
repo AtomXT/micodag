@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 import os
-VERSION = '0.0.6'
+VERSION = '0.0.8'
 DESCRIPTION = 'A Python package of mixed integer convex programming for directed acyclic graphs.'
 
 

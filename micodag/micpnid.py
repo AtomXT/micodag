@@ -17,7 +17,7 @@ import pandas as pd
 import networkx as nx
 
 
-def optimize(data, moral, lam, timelimit=50, verbose=1):
+def optimize(data, moral, lam, tau=0, timelimit=50, verbose=1):
     """
 
     Solve a mixed integer convex programming problem with perspective strengthening and outer approximation to estimate
@@ -26,6 +26,7 @@ def optimize(data, moral, lam, timelimit=50, verbose=1):
     :param data: n by p data matrix.
     :param moral: list of edges in the moral graph (superstructure)
     :param lam: sparsity parameter lambda
+    :param tau: early stopping parameter tau
     :param timelimit: set the time limit of gurobi to be timelimit * p (seconds)
     :param verbose: output the log of gurobi if verbose = 1
     :return:
@@ -194,6 +195,8 @@ def optimize(data, moral, lam, timelimit=50, verbose=1):
     m.Params.TimeLimit = timelimit*p
     m.Params.lazyConstraints = 1
     m.Params.OutputFlag = verbose
+    if tau > 0:
+        m.Params.MIPGapAbs = tau
     start = timeit.default_timer()
     m.optimize(logarithmic_callback)
     end = timeit.default_timer()
