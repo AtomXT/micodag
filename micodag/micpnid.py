@@ -202,7 +202,7 @@ def optimize(data, moral, lam, timelimit=50, verbose=1):
     Gamma_ij = [var.X for var in m.getVars() if "Gamma" in var.VarName]
     Gamma_opt = np.reshape(Gamma_ij, (p, p))
     D_half = np.diag(np.diag(Gamma_opt))
-    B = np.eye(p) - np.linalg.inv(D_half)@Gamma_opt.T
+    B = np.eye(p) - Gamma_opt.T@np.linalg.inv(D_half)
     B[abs(B) <= 1e-6] = 0
     run_time = end - start
     RGAP = m.MIPGAP
