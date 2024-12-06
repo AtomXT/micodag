@@ -103,3 +103,62 @@ def CD(X, moral, lam=0.01, MAX_cycles=100, tol=1e-2):
         objs.append(obj_t)
 
     return opt_Gamma, min_obj
+
+def best_CD(X, moral, lam=0.01, MAX_cycles=100, tol=1e-2, start=None):
+    N, P = X.shape
+    sigma = np.cov(X.T)
+    Gamma = np.eye(P) if start is None else start
+    objs = []
+    min_obj = objective(Gamma, sigma, lam)
+    opt_Gamma = None
+    support_counter = defaultdict(int)
+    for t in range(MAX_cycles):
+        improve = 0
+        nxt_Gamma = Gamma.copy()
+        candidate_Gamma = Gamma.copy()
+        for u in range(P):
+            candidate_Gamma[u, u] = gamma_hat_diag(candidate_Gamma, sigma, u)
+            improve_tmp = min_obj - objective(candidate_Gamma, sigma, lam)
+            if improve_tmp > improve:
+                improve = improve_tmp
+                nxt_Gamma = candidate_Gamma.copy()
+            for v in range(P):
+                if u != v and moral[u, v] == 1:
+                    candidate_Gamma = Gamma.copy()
+                    temp_gamma = Gamma.copy()
+                    temp_gamma -= np.diag(np.diag(temp_gamma))
+                    cycle_uv = cycle(temp_gamma, u, v)
+                    if cycle_uv:
+                        candidate_Gamma[u, v] = 0
+                    else:
+                        candidate_Gamma[u, v] = gamma_hat(candidate_Gamma, sigma, u, v, lam)
+                    improve_tmp = min_obj - objective(candidate_Gamma, sigma, lam)
+                    if improve_tmp > improve:
+                        improve = improve_tmp
+                        nxt_Gamma = candidate_Gamma.copy()
+        Gamma = nxt_Gamma.copy()
+        obj_t = objective(Gamma, sigma, lam)
+
+        support_i = str(np.array(Gamma != 0, dtype=int).flatten())
+        support_counter[support_i] += 1
+
+        # spacer step
+        if support_counter[support_i] == 5:
+            # print("spacer step is working")
+            for u, v in np.transpose(np.nonzero(Gamma)):
+                if u != v:
+                    Gamma[u, v] = gamma_hat(Gamma, sigma, u, v, lam)
+                else:
+                    Gamma[u, u] = gamma_hat_diag(Gamma, sigma, u)
+            support_counter[support_i] = 0
+            obj_t = objective(Gamma, sigma, lam)
+
+        if len(objs) > 1 and objs[-1] - obj_t < tol:
+            objs.append(obj_t)
+            print(f"stop at the {t}-th iteration.")
+            break
+        if obj_t < min_obj:
+            min_obj = obj_t
+            opt_Gamma = Gamma.copy()
+        objs.append(obj_t)
+    return opt_Gamma, min_obj

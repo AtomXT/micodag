@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e215333-1e7f-46e0-87ab-41eeddcfe944" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/micodag/micpnid.py" beforeDir="false" afterPath="$PROJECT_DIR$/micodag/micpnid.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/micodag/cd_spacer.py" beforeDir="false" afterPath="$PROJECT_DIR$/micodag/cd_spacer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +51,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-7a29c1521ef0-c986f194a52a-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.11799.298" />
+        <option value="bundled-python-sdk-c69650fc56ca-b11f5e8da5ad-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.15619.17" />
       </set>
     </attachedChunks>
   </component>
@@ -76,7 +76,10 @@
       <workItem from="1716612012028" duration="11000" />
       <workItem from="1722533958544" duration="3418000" />
       <workItem from="1725767081444" duration="609000" />
-      <workItem from="1725768026534" duration="221000" />
+      <workItem from="1725768026534" duration="820000" />
+      <workItem from="1726091607180" duration="1000" />
+      <workItem from="1726351902875" duration="1000" />
+      <workItem from="1733518757709" duration="335000" />
     </task>
     <servers />
   </component>
