@@ -17,7 +17,7 @@ import pandas as pd
 import networkx as nx
 
 
-def optimize(data, moral, lam, tau=0, timelimit=50, verbose=1):
+def optimize(data, moral, lam, tau=0, timelimit=50, verbose=1, gurobi_params=None):
     """
 
     Solve a mixed integer convex programming problem with perspective strengthening and outer approximation to estimate
@@ -29,6 +29,7 @@ def optimize(data, moral, lam, tau=0, timelimit=50, verbose=1):
     :param tau: early stopping parameter tau
     :param timelimit: set the time limit of gurobi to be timelimit * p (seconds)
     :param verbose: output the log of gurobi if verbose = 1
+    :param gurobi_params: parameters for the gurobi
     :return:
         RGAP: relative optimality gap of optimization problem
         B: the B matrix representing a Bayesian network
@@ -191,10 +192,15 @@ def optimize(data, moral, lam, tau=0, timelimit=50, verbose=1):
         m.addConstr(S_var[i, i] <= M * M)
 
 
-    # Solve
+    # setting default parameters
+    m.Params.OutputFlag = verbose
     m.Params.TimeLimit = timelimit*p
     m.Params.lazyConstraints = 1
-    m.Params.OutputFlag = verbose
+
+    # setting user-specified gurobi parameters
+    if gurobi_params:
+        for param, value in gurobi_params.items():
+            m.setParam(param, value)
     if tau > 0:
         m.Params.MIPGapAbs = tau
     start = timeit.default_timer()
